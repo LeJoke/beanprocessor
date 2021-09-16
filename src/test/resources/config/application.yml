@@ -1,0 +1,6 @@
+
+logging:
+  level:
+    ROOT: ERROR
+    spring.beanprocessor: INFO
+    org.springframework: ERROR
