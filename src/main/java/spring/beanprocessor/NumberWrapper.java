@@ -1,6 +1,6 @@
 package spring.beanprocessor;
 
-public interface Greeter {
+public interface NumberWrapper {
 
     int getRandomNumber();
 
@@ -9,4 +9,6 @@ public interface Greeter {
     int get5();
 
     int get5withIncrease();
+
+    void contextRefresh();
 }

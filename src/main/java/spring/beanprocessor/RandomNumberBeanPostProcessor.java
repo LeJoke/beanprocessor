@@ -13,8 +13,8 @@ public class RandomNumberBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof GreeterImpl) {
-            Field[] fields = GreeterImpl.class.getDeclaredFields();
+        if (bean instanceof NumberWrapperImpl) {
+            Field[] fields = NumberWrapperImpl.class.getDeclaredFields();
             for (Field field : fields) {
                 RandomNumber annotation = field.getAnnotation(RandomNumber.class);
                 if (annotation != null) {

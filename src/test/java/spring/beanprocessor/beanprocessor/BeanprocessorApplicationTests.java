@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import spring.beanprocessor.Greeter;
+import spring.beanprocessor.NumberWrapper;
 
 @SpringBootTest
 class BeanprocessorApplicationTests {
@@ -14,11 +14,11 @@ class BeanprocessorApplicationTests {
 
     @Test
     void contextLoads() {
-        Greeter greeter = applicationContext.getBean(Greeter.class);
-        System.out.println("sout greeter.getClass(): " + greeter.getClass());
-        System.out.println("sout greeter.getRandomNumber(): " + greeter.getRandomNumber());
-        System.out.println("sout greeter.getRandomNumberWithIncrease(): " + greeter.getRandomNumberWithIncrease());
-        System.out.println("sout greeter.get5(): " + greeter.get5());
-        System.out.println("sout greeter.get5withIncrease(): " + greeter.get5withIncrease());
+        NumberWrapper numberWrapper = applicationContext.getBean(NumberWrapper.class);
+        System.out.println("sout greeter.getClass(): " + numberWrapper.getClass());
+        System.out.println("sout greeter.getRandomNumber(): " + numberWrapper.getRandomNumber());
+        System.out.println("sout greeter.getRandomNumberWithIncrease(): " + numberWrapper.getRandomNumberWithIncrease());
+        System.out.println("sout greeter.get5(): " + numberWrapper.get5());
+        System.out.println("sout greeter.get5withIncrease(): " + numberWrapper.get5withIncrease());
     }
 }

@@ -3,15 +3,14 @@ package spring.beanprocessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
-public class GreeterImpl implements Greeter {
+public class NumberWrapperImpl implements NumberWrapper {
 
-    private final Logger log = LoggerFactory.getLogger(GreeterImpl.class);
+    private final Logger log = LoggerFactory.getLogger(NumberWrapperImpl.class);
 
     @RandomNumber(min = 5, max = 20)
     private int randomNumber;
@@ -21,7 +20,7 @@ public class GreeterImpl implements Greeter {
         log.info("{}, randomNumber = {}", "2 init method", randomNumber);
     }
 
-    public GreeterImpl() {
+    public NumberWrapperImpl() {
         log.info("{}, randomNumber = {}", "1 default", randomNumber);
     }
 
@@ -51,8 +50,9 @@ public class GreeterImpl implements Greeter {
         this.randomNumber = randomNumber;
     }
 
-    @EventListener
-    private void contextRefresh(ContextRefreshedEvent contextRefreshedEvent) {
+    @Override
+    @IncreaseRandomNumberWith5
+    public void contextRefresh() {
         this.randomNumber += 5;
         log.info("{}, randomNumber = {}", "3 context event refresh", randomNumber);
     }

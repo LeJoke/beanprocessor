@@ -46,12 +46,12 @@ public class IncreaseRandomNumberValueBeanPostProcessor implements BeanPostProce
                         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                             ReflectionUtils.makeAccessible(method);
                             Method baseClassDeclaredMethod = baseClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
-                            Method currentDeclaredMethod = bean.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes());
+//                            Method currentDeclaredMethod = bean.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes());
                             if (baseClassDeclaredMethod.isAnnotationPresent(GetIncreasedNumber.class)) {
-                                Object value = currentDeclaredMethod.invoke(bean, args);
+                                Object value = method.invoke(bean, args);
                                 return (int) value + baseClassDeclaredMethod.getAnnotation(GetIncreasedNumber.class).increaseValue();
                             }
-                            return currentDeclaredMethod.invoke(bean, args);
+                            return method.invoke(bean, args);
                         }
                     });
         }
