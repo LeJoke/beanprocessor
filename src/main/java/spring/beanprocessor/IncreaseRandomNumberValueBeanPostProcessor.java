@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -39,21 +38,21 @@ public class IncreaseRandomNumberValueBeanPostProcessor implements BeanPostProce
         if (baseObject != null) {
             Class<?> baseClass = baseObject.getClass();
             return Proxy.newProxyInstance(
-                    bean.getClass().getClassLoader(),
-                    baseClass.getInterfaces(),
-                    new InvocationHandler() {
-                        @Override
-                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                            ReflectionUtils.makeAccessible(method);
-                            Method baseClassDeclaredMethod = baseClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
+                bean.getClass().getClassLoader(),
+                baseClass.getInterfaces(),
+                new InvocationHandler() {
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        ReflectionUtils.makeAccessible(method);
+                        Method baseClassDeclaredMethod = baseClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
 //                            Method currentDeclaredMethod = bean.getClass().getDeclaredMethod(method.getName(), method.getParameterTypes());
-                            if (baseClassDeclaredMethod.isAnnotationPresent(GetIncreasedNumber.class)) {
-                                Object value = method.invoke(bean, args);
-                                return (int) value + baseClassDeclaredMethod.getAnnotation(GetIncreasedNumber.class).increaseValue();
-                            }
-                            return method.invoke(bean, args);
+                        if (baseClassDeclaredMethod.isAnnotationPresent(GetIncreasedNumber.class)) {
+                            Object value = method.invoke(bean, args);
+                            return (int) value + baseClassDeclaredMethod.getAnnotation(GetIncreasedNumber.class).increaseValue();
                         }
-                    });
+                        return method.invoke(bean, args);
+                    }
+                });
         }
         return bean;
     }

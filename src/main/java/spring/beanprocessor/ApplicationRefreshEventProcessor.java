@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 @Component
 public class ApplicationRefreshEventProcessor implements ApplicationListener<ContextRefreshedEvent> {

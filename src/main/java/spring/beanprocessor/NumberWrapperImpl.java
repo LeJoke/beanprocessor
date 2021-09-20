@@ -2,7 +2,6 @@ package spring.beanprocessor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -15,18 +14,22 @@ public class NumberWrapperImpl implements NumberWrapper {
     @RandomNumber(min = 5, max = 20)
     private int randomNumber;
 
+    public NumberWrapperImpl() {
+        log.info("{}, randomNumber = {}", "1 default", randomNumber);
+    }
+
     @PostConstruct
     private void init() {
         log.info("{}, randomNumber = {}", "2 init method", randomNumber);
     }
 
-    public NumberWrapperImpl() {
-        log.info("{}, randomNumber = {}", "1 default", randomNumber);
-    }
-
     @Override
     public int getRandomNumber() {
         return randomNumber;
+    }
+
+    public void setRandomNumber(int randomNumber) {
+        this.randomNumber = randomNumber;
     }
 
     @Override
@@ -44,10 +47,6 @@ public class NumberWrapperImpl implements NumberWrapper {
     @GetIncreasedNumber(increaseValue = 5)
     public int get5withIncrease() {
         return 5;
-    }
-
-    public void setRandomNumber(int randomNumber) {
-        this.randomNumber = randomNumber;
     }
 
     @Override
